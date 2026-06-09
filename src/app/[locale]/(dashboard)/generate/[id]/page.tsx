@@ -1,13 +1,13 @@
-import { redirect } from "next/navigation";
+import { redirect } from "@/i18n/navigation";
 
 interface GenerateDetailRedirectProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }
 
 /** @deprecated Use /history/[id] — kept for backward compatibility */
 export default async function GenerateDetailRedirect({
   params,
 }: GenerateDetailRedirectProps) {
-  const { id } = await params;
-  redirect(`/history/${id}`);
+  const { locale, id } = await params;
+  redirect({ href: `/history/${id}`, locale });
 }

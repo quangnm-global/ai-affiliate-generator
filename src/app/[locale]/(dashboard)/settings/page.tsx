@@ -1,9 +1,20 @@
+import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
+
 import { AccountInfo, SettingsSection } from "@/components/settings/settings-section";
 import { ProfileForm } from "@/components/settings/profile-form";
 import { PageContainer, PageHeader } from "@/components/layout/page-container";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function SettingsPage() {
+export default async function SettingsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("settings");
+  const appLocale = await getLocale();
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -16,22 +27,22 @@ export default async function SettingsPage() {
     .single();
 
   const memberSince = profile?.created_at
-    ? new Date(profile.created_at as string).toLocaleDateString("en-US", {
-        month: "long",
-        year: "numeric",
-      })
+    ? new Date(profile.created_at as string).toLocaleDateString(
+        appLocale === "vi" ? "vi-VN" : "en-US",
+        {
+          month: "long",
+          year: "numeric",
+        }
+      )
     : "—";
 
   return (
     <PageContainer>
-      <PageHeader
-        title="Settings"
-        description="Manage your account and preferences"
-      />
+      <PageHeader title={t("title")} description={t("description")} />
       <div className="space-y-6">
         <SettingsSection
-          title="Profile"
-          description="Update your personal information"
+          title={t("profile")}
+          description={t("profileDescription")}
         >
           <ProfileForm
             fullName={(profile?.full_name as string | null) ?? null}
@@ -40,8 +51,8 @@ export default async function SettingsPage() {
         </SettingsSection>
 
         <SettingsSection
-          title="Account"
-          description="Your account details and usage"
+          title={t("account")}
+          description={t("accountDescription")}
         >
           <AccountInfo
             email={(profile?.email as string) ?? user!.email ?? ""}

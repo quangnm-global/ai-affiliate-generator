@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -8,7 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CONTENT_TYPE_LABELS, type ContentType } from "@/types/generation";
+import { CONTENT_TYPE_KEYS } from "@/lib/i18n/labels";
+import type { ContentType } from "@/types/generation";
 
 interface ContentTypeSelectProps {
   value: ContentType;
@@ -16,16 +19,19 @@ interface ContentTypeSelectProps {
   disabled?: boolean;
 }
 
-const contentTypes = Object.keys(CONTENT_TYPE_LABELS) as ContentType[];
+const contentTypes = Object.keys(CONTENT_TYPE_KEYS) as ContentType[];
 
 export function ContentTypeSelect({
   value,
   onChange,
   disabled,
 }: ContentTypeSelectProps) {
+  const t = useTranslations("generate");
+  const tTypes = useTranslations("contentTypes");
+
   return (
     <div className="space-y-2">
-      <Label>Content type</Label>
+      <Label>{t("contentType")}</Label>
       <Select
         value={value}
         onValueChange={(v) => onChange(v as ContentType)}
@@ -37,7 +43,7 @@ export function ContentTypeSelect({
         <SelectContent>
           {contentTypes.map((type) => (
             <SelectItem key={type} value={type}>
-              {CONTENT_TYPE_LABELS[type]}
+              {tTypes(CONTENT_TYPE_KEYS[type])}
             </SelectItem>
           ))}
         </SelectContent>

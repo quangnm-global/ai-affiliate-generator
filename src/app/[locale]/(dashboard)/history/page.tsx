@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { GenerationList } from "@/components/history/generation-list";
 import { HistoryPagination } from "@/components/history/history-pagination";
@@ -9,58 +9,74 @@ import {
   PageHeader,
 } from "@/components/layout/page-container";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getPaginatedGenerations } from "@/lib/generations/queries";
+import { redirect } from "@/i18n/navigation";
 import { requireUser } from "@/lib/auth/get-user";
+import { getPaginatedGenerations } from "@/lib/generations/queries";
+import { buildHistoryUrl } from "@/lib/validations/history";
 import { historySearchParamsSchema } from "@/lib/validations/history";
 
 export const dynamic = "force-dynamic";
 
 interface HistoryPageProps {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ page?: string; q?: string }>;
 }
 
-export default async function HistoryPage({ searchParams }: HistoryPageProps) {
+export default async function HistoryPage({
+  params,
+  searchParams,
+}: HistoryPageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("history");
   const user = await requireUser();
   const rawParams = await searchParams;
   const parsed = historySearchParamsSchema.safeParse(rawParams);
 
-  const params = parsed.success
+  const pageParams = parsed.success
     ? parsed.data
     : { page: 1, q: undefined };
 
-  const result = await getPaginatedGenerations(user.id, params);
+  const result = await getPaginatedGenerations(user.id, pageParams);
 
-  if (params.page > 1 && result.totalPages > 0 && params.page > result.totalPages) {
-    redirect(
-      params.q
-        ? `/history?q=${encodeURIComponent(params.q)}&page=${result.totalPages}`
-        : `/history?page=${result.totalPages}`
-    );
+  if (
+    pageParams.page > 1 &&
+    result.totalPages > 0 &&
+    pageParams.page > result.totalPages
+  ) {
+    redirect({
+      href: buildHistoryUrl({
+        q: pageParams.q,
+        page: result.totalPages,
+      }),
+      locale,
+    });
   }
 
   return (
     <PageContainer size="wide">
       <PageHeader
-        title="History"
+        title={t("title")}
         description={
           result.total > 0
-            ? `${result.total} generation${result.total !== 1 ? "s" : ""} total`
-            : "All your past content generations"
+            ? t("descriptionCount", { count: result.total })
+            : t("descriptionEmpty")
         }
       />
 
       <div className="space-y-6">
         <Suspense fallback={<Skeleton className="h-10 w-full" />}>
-          <HistorySearchForm defaultQuery={params.q} />
+          <HistorySearchForm defaultQuery={pageParams.q} />
         </Suspense>
 
-        <GenerationList generations={result.data} query={params.q} />
+        <GenerationList generations={result.data} query={pageParams.q} />
 
         <HistoryPagination
           page={result.page}
           totalPages={result.totalPages}
           total={result.total}
-          query={params.q}
+          query={pageParams.q}
         />
       </div>
     </PageContainer>

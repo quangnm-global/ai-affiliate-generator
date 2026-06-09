@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   History,
   LayoutDashboard,
@@ -9,10 +7,13 @@ import {
   Settings,
   Sparkles,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
+import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { SidebarNav } from "@/components/layout/sidebar-nav";
 import { SidebarRecent } from "@/components/layout/sidebar-recent";
 import { UserMenu } from "@/components/layout/user-menu";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -30,25 +31,28 @@ interface SidebarProps {
   signOutAction: () => Promise<void>;
 }
 
-const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/generate", label: "New Generation", icon: Sparkles },
-  { href: "/history", label: "History", icon: History },
-  { href: "/settings", label: "Settings", icon: Settings },
-];
-
 export function Sidebar({ user, recentGenerations, signOutAction }: SidebarProps) {
+  const t = useTranslations("nav");
+  const common = useTranslations("common");
   const pathname = usePathname();
+
+  const navItems = [
+    { href: "/dashboard", label: t("dashboard"), icon: LayoutDashboard },
+    { href: "/generate", label: t("newGeneration"), icon: Sparkles },
+    { href: "/history", label: t("history"), icon: History },
+    { href: "/settings", label: t("settings"), icon: Settings },
+  ];
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex h-14 items-center gap-2 px-4">
-        <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <Sparkles className="size-4" />
-        </div>
-        <Link href="/dashboard" className="font-semibold tracking-tight">
-          Affiliate AI
+      <div className="flex h-14 items-center justify-between gap-2 px-4">
+        <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+          <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <Sparkles className="size-4" />
+          </div>
+          {common("appName")}
         </Link>
+        <LocaleSwitcher />
       </div>
 
       <div className="px-3 pb-2">
@@ -58,7 +62,7 @@ export function Sidebar({ user, recentGenerations, signOutAction }: SidebarProps
           render={<Link href="/generate" />}
         >
           <Plus className="size-4" />
-          New Generation
+          {t("newGeneration")}
         </Button>
       </div>
 

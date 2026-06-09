@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Check, Copy, Sparkles } from "lucide-react";
 import { toast } from "sonner";
@@ -19,13 +20,16 @@ export function GenerationPreview({
   status,
   errorMessage,
 }: GenerationPreviewProps) {
+  const t = useTranslations("generate");
+  const tHistory = useTranslations("history");
+  const tErrors = useTranslations("errors");
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
     if (!output) return;
     await navigator.clipboard.writeText(output);
     setCopied(true);
-    toast.success("Copied to clipboard");
+    toast.success(t("copiedToClipboard"));
     setTimeout(() => setCopied(false), 2000);
   }
 
@@ -34,7 +38,7 @@ export function GenerationPreview({
       <div className="rounded-2xl border bg-muted/20 p-6">
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <Sparkles className="size-4 animate-pulse" />
-          Generating your content...
+          {t("generatingContent")}
         </div>
         <div className="mt-4 space-y-2">
           <div className="h-3 w-3/4 animate-pulse rounded-full bg-muted" />
@@ -48,9 +52,11 @@ export function GenerationPreview({
   if (status === "failed") {
     return (
       <div className="rounded-2xl border border-destructive/30 bg-destructive/5 p-6">
-        <p className="text-sm font-medium text-destructive">Generation failed</p>
+        <p className="text-sm font-medium text-destructive">
+          {tErrors("generationFailed")}
+        </p>
         <p className="mt-1 text-sm text-muted-foreground">
-          {errorMessage ?? "Something went wrong. Please try again."}
+          {errorMessage ?? tErrors("genericDescription")}
         </p>
       </div>
     );
@@ -64,7 +70,7 @@ export function GenerationPreview({
         <p className="text-sm font-medium">{title}</p>
         <Button variant="ghost" size="sm" onClick={handleCopy} className="gap-1.5">
           {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-          Copy
+          {tHistory("copy")}
         </Button>
       </div>
       <div className="max-h-[60vh] overflow-auto p-5">

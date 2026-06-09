@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { createGeneration } from "@/actions/generations";
@@ -13,6 +13,7 @@ import {
 } from "@/components/credits/credit-guard";
 import { ContentTypeSelect } from "@/components/generate/content-type-select";
 import { GenerationPreview } from "@/components/generate/generation-preview";
+import { useRouter } from "@/i18n/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -25,6 +26,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useCredits } from "@/hooks/use-credits";
 import { canGenerate } from "@/lib/credits/check";
+import { TONE_KEYS } from "@/lib/i18n/labels";
 import {
   TONE_OPTIONS,
   type ContentType,
@@ -36,6 +38,9 @@ interface GenerationFormProps {
 }
 
 export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
+  const t = useTranslations("generate");
+  const tTones = useTranslations("tones");
+  const tErrors = useTranslations("errors");
   const router = useRouter();
   const { credits: liveCredits } = useCredits();
   const credits = liveCredits ?? initialCredits;
@@ -49,7 +54,7 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
     e.preventDefault();
 
     if (!canGenerate(credits)) {
-      toast.error("You have no credits left.");
+      toast.error(tErrors("noCredits"));
       return;
     }
 
@@ -82,7 +87,7 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
     if (result.output) setOutput(result.output);
 
     if (result.id) {
-      toast.success("Content generated successfully");
+      toast.success(tErrors("contentGenerated"));
       router.refresh();
     }
   }
@@ -96,9 +101,9 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
           <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-muted">
             <Sparkles className="size-6 text-muted-foreground" />
           </div>
-          <h2 className="text-lg font-medium">What would you like to create?</h2>
+          <h2 className="text-lg font-medium">{t("whatToCreate")}</h2>
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Fill in the details below to generate affiliate content with AI.
+            {t("fillDetails")}
           </p>
           <div className="mt-3">
             <CreditInfo credits={credits} />
@@ -108,7 +113,7 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
 
       {(output || loading) && (
         <GenerationPreview
-          title="Generated content"
+          title={t("generatedContent")}
           output={output}
           status={loading ? "pending" : output ? "completed" : "pending"}
         />
@@ -120,11 +125,11 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
       >
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="space-y-2 sm:col-span-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">{t("titleLabel")}</Label>
             <Input
               id="title"
               name="title"
-              placeholder="Best Wireless Earbuds 2025"
+              placeholder={t("titlePlaceholder")}
               className="bg-background"
               required
               disabled={!canGenerate(credits)}
@@ -138,11 +143,11 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
           />
 
           <div className="space-y-2">
-            <Label htmlFor="productName">Product name</Label>
+            <Label htmlFor="productName">{t("productName")}</Label>
             <Input
               id="productName"
               name="productName"
-              placeholder="Sony WF-1000XM5"
+              placeholder={t("productNamePlaceholder")}
               className="bg-background"
               required
               disabled={!canGenerate(credits)}
@@ -150,23 +155,23 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
           </div>
 
           <div className="space-y-2 sm:col-span-2">
-            <Label htmlFor="affiliateUrl">Affiliate URL (optional)</Label>
+            <Label htmlFor="affiliateUrl">{t("affiliateUrl")}</Label>
             <Input
               id="affiliateUrl"
               name="affiliateUrl"
               type="url"
-              placeholder="https://amazon.com/..."
+              placeholder={t("affiliateUrlPlaceholder")}
               className="bg-background"
               disabled={!canGenerate(credits)}
             />
           </div>
 
           <div className="space-y-2 sm:col-span-2">
-            <Label htmlFor="keywords">Keywords (comma-separated)</Label>
+            <Label htmlFor="keywords">{t("keywords")}</Label>
             <Textarea
               id="keywords"
               name="keywords"
-              placeholder="wireless earbuds, noise cancelling"
+              placeholder={t("keywordsPlaceholder")}
               rows={2}
               className="resize-none bg-background"
               disabled={!canGenerate(credits)}
@@ -174,7 +179,7 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label>Tone</Label>
+            <Label>{t("tone")}</Label>
             <Select
               value={tone}
               onValueChange={(v) => setTone(v as Tone)}
@@ -184,9 +189,9 @@ export function GenerationForm({ initialCredits = 0 }: GenerationFormProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {TONE_OPTIONS.map((t) => (
-                  <SelectItem key={t} value={t}>
-                    {t.charAt(0).toUpperCase() + t.slice(1)}
+                {TONE_OPTIONS.map((toneOption) => (
+                  <SelectItem key={toneOption} value={toneOption}>
+                    {tTones(TONE_KEYS[toneOption])}
                   </SelectItem>
                 ))}
               </SelectContent>

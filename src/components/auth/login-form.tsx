@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { EmailAuthForm } from "@/components/auth/email-auth-form";
@@ -14,6 +15,7 @@ interface LoginFormProps {
 type LoginMethod = "email" | "magic-link";
 
 export function LoginForm({ redirectTo }: LoginFormProps) {
+  const t = useTranslations("auth");
   const [method, setMethod] = useState<LoginMethod>("email");
 
   return (
@@ -26,7 +28,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
           className="flex-1"
           onClick={() => setMethod("email")}
         >
-          Email & password
+          {t("emailPassword")}
         </Button>
         <Button
           type="button"
@@ -35,7 +37,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
           className="flex-1"
           onClick={() => setMethod("magic-link")}
         >
-          Magic link
+          {t("magicLink")}
         </Button>
       </div>
 
@@ -48,7 +50,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
       <div className="flex items-center gap-3">
         <Separator className="flex-1" />
         <span className="text-xs text-muted-foreground">
-          {method === "email" ? "Passwordless option" : "Prefer a password?"}
+          {method === "email" ? t("passwordlessOption") : t("preferPassword")}
         </span>
         <Separator className="flex-1" />
       </div>
@@ -61,9 +63,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
           setMethod(method === "email" ? "magic-link" : "email")
         }
       >
-        {method === "email"
-          ? "Sign in with magic link instead"
-          : "Sign in with email & password instead"}
+        {method === "email" ? t("useMagicLink") : t("useEmailPassword")}
       </Button>
     </div>
   );

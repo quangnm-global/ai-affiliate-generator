@@ -1,6 +1,7 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, Coins, FileText, Sparkles } from "lucide-react";
 
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 interface WelcomeBannerProps {
@@ -8,19 +9,20 @@ interface WelcomeBannerProps {
   credits: number;
 }
 
-export function WelcomeBanner({ name, credits }: WelcomeBannerProps) {
+export async function WelcomeBanner({ name, credits }: WelcomeBannerProps) {
+  const t = await getTranslations("dashboard");
+  const nav = await getTranslations("nav");
+
   return (
     <div className="rounded-2xl border bg-muted/30 p-6 sm:p-8">
       <h2 className="text-xl font-semibold sm:text-2xl">
-        Hello, {name}
+        {t("hello", { name })}
       </h2>
       <p className="mt-2 max-w-lg text-sm text-muted-foreground sm:text-base">
-        You have{" "}
-        <span className="font-medium text-foreground">{credits} credits</span>{" "}
-        remaining. Start a new generation or review your past content.
+        {t("creditsRemaining", { credits })}
       </p>
       <Button className="mt-5 gap-2" render={<Link href="/generate" />}>
-        New Generation
+        {nav("newGeneration")}
         <ArrowRight className="size-4" />
       </Button>
     </div>
@@ -53,25 +55,27 @@ interface StatsGridProps {
   completedGenerations: number;
 }
 
-export function StatsGrid({
+export async function StatsGrid({
   credits,
   totalGenerations,
   completedGenerations,
 }: StatsGridProps) {
+  const t = await getTranslations("dashboard");
+
   return (
     <div className="grid gap-3 sm:grid-cols-3">
       <StatItem
-        label="Credits left"
+        label={t("creditsLeft")}
         value={credits}
         icon={<Coins className="size-5 text-muted-foreground" />}
       />
       <StatItem
-        label="Total generations"
+        label={t("totalGenerations")}
         value={totalGenerations}
         icon={<FileText className="size-5 text-muted-foreground" />}
       />
       <StatItem
-        label="Completed"
+        label={t("completed")}
         value={completedGenerations}
         icon={<Sparkles className="size-5 text-muted-foreground" />}
       />

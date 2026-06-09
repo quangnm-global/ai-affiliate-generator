@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { LoginForm } from "@/components/auth/login-form";
 import {
   Card,
@@ -8,27 +10,33 @@ import {
 } from "@/components/ui/card";
 import { sanitizeRedirectPath } from "@/lib/auth/routes";
 
-const AUTH_ERRORS: Record<string, string> = {
-  auth: "Authentication failed. Please try again.",
-  session_expired: "Your session has expired. Please sign in again.",
-};
-
 export default async function LoginPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ redirect?: string; error?: string }>;
 }) {
-  const params = await searchParams;
-  const redirectTo = sanitizeRedirectPath(params.redirect);
-  const errorMessage = params.error ? AUTH_ERRORS[params.error] : null;
+  const { locale } = await params;
+  const routeParams = await searchParams;
+  const t = await getTranslations("auth");
+  const errors = await getTranslations("errors");
+
+  const redirectTo = sanitizeRedirectPath(routeParams.redirect, locale);
+
+  const authErrors: Record<string, string> = {
+    auth: errors("generic"),
+    session_expired: errors("unauthorized"),
+  };
+  const errorMessage = routeParams.error
+    ? authErrors[routeParams.error] ?? errors("generic")
+    : null;
 
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle>Welcome back</CardTitle>
-        <CardDescription>
-          Sign in with email or receive a magic link
-        </CardDescription>
+        <CardTitle>{t("signInTitle")}</CardTitle>
+        <CardDescription>{t("signInDescription")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {errorMessage && (

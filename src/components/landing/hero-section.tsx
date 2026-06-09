@@ -1,6 +1,7 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, Play, Sparkles, Zap } from "lucide-react";
 
+import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +9,8 @@ interface HeroSectionProps {
   isLoggedIn: boolean;
 }
 
-export function HeroSection({ isLoggedIn }: HeroSectionProps) {
+export async function HeroSection({ isLoggedIn }: HeroSectionProps) {
+  const t = await getTranslations("landing.hero");
   const ctaHref = isLoggedIn ? "/generate" : "/login";
 
   return (
@@ -22,25 +24,23 @@ export function HeroSection({ isLoggedIn }: HeroSectionProps) {
         <div className="mx-auto max-w-3xl text-center">
           <Badge variant="secondary" className="mb-6 gap-1.5 px-3 py-1">
             <Zap className="size-3" />
-            AI-powered affiliate content
+            {t("badge")}
           </Badge>
 
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-            Generate viral affiliate content{" "}
+            {t("title")}{" "}
             <span className="bg-gradient-to-r from-primary to-violet-600 bg-clip-text text-transparent">
-              in seconds
+              {t("titleHighlight")}
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            Create TikTok scripts, product reviews, and sales captions optimized
-            for TikTok Shop — built for affiliate marketers and Vietnamese
-            audiences.
+            {t("description")}
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button size="lg" className="gap-2 px-8" render={<Link href={ctaHref} />}>
-              Start free — 5 credits
+              {t("cta")}
               <ArrowRight className="size-4" />
             </Button>
             <Button
@@ -50,16 +50,13 @@ export function HeroSection({ isLoggedIn }: HeroSectionProps) {
               render={<a href="#how-it-works" />}
             >
               <Play className="size-4" />
-              See how it works
+              {t("seeHow")}
             </Button>
           </div>
 
-          <p className="mt-4 text-sm text-muted-foreground">
-            No credit card required · 1 credit per generation
-          </p>
+          <p className="mt-4 text-sm text-muted-foreground">{t("footnote")}</p>
         </div>
 
-        {/* Product preview mockup */}
         <div className="relative mx-auto mt-16 max-w-4xl">
           <div className="rounded-2xl border bg-card/50 p-1 shadow-2xl shadow-primary/5 backdrop-blur-sm">
             <div className="rounded-xl border bg-background p-6 sm:p-8">
@@ -68,31 +65,28 @@ export function HeroSection({ isLoggedIn }: HeroSectionProps) {
                 <div className="size-3 rounded-full bg-amber-400/80" />
                 <div className="size-3 rounded-full bg-emerald-400/80" />
                 <span className="ml-2 text-xs text-muted-foreground">
-                  New Generation
+                  {t("previewTitle")}
                 </span>
               </div>
               <div className="space-y-4">
                 <div className="rounded-lg border bg-muted/30 p-4">
                   <p className="text-xs font-medium text-muted-foreground">
-                    Product
+                    {t("product")}
                   </p>
-                  <p className="mt-1 font-medium">
-                    Kem chống nắng nâng tone SPF50+
-                  </p>
+                  <p className="mt-1 font-medium">{t("sampleProduct")}</p>
                 </div>
                 <div className="rounded-lg border bg-muted/30 p-4">
                   <p className="text-xs font-medium text-muted-foreground">
-                    Generated output
+                    {t("generatedOutput")}
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    &ldquo;POV: Bạn vừa phát hiện kem chống nắng 200k mà da
-                    nâng tone tự nhiên...&rdquo;
+                    {t("sampleOutput")}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Sparkles className="size-4 text-primary" />
                   <span className="text-sm text-muted-foreground">
-                    10 hooks · 1 script · 1 caption · 10 hashtags
+                    {t("outputMeta")}
                   </span>
                 </div>
               </div>

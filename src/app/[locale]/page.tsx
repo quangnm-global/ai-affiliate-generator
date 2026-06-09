@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { JsonLd } from "@/components/seo/json-ld";
 import { getLandingStructuredData } from "@/lib/seo/json-ld";
@@ -16,21 +17,40 @@ import { PricingSection } from "@/components/landing/pricing-section";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = createMetadata({
-  path: "/",
-});
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo" });
 
-export default async function HomePage() {
+  return createMetadata({
+    locale,
+    path: "/",
+    description: t("description"),
+  });
+}
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   const isLoggedIn = !!user;
+  const structuredData = await getLandingStructuredData(locale);
 
   return (
     <>
-      <JsonLd data={getLandingStructuredData()} />
+      <JsonLd data={structuredData} />
       <div className="flex min-h-screen flex-col">
         <LandingNav isLoggedIn={isLoggedIn} />
         <main>

@@ -1,18 +1,21 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
 import { ErrorFallback } from "@/components/errors/error-fallback";
 
-export default function DashboardError({
+export default function Error({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations("errors");
+
   useEffect(() => {
-    console.error("[dashboard:error]", {
+    console.error("[app:error]", {
       message: error.message,
       digest: error.digest,
       stack: error.stack,
@@ -22,7 +25,7 @@ export default function DashboardError({
   return (
     <ErrorFallback
       reset={reset}
-      description="Dashboard failed to load. Try again or check your connection."
+      description={t("pageSafe")}
     />
   );
 }

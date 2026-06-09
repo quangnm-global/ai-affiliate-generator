@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -15,6 +16,8 @@ interface MagicLinkFormProps {
 }
 
 export function MagicLinkForm({ redirectTo }: MagicLinkFormProps) {
+  const t = useTranslations("auth");
+  const tErrors = useTranslations("errors");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -25,7 +28,7 @@ export function MagicLinkForm({ redirectTo }: MagicLinkFormProps) {
 
     const parsed = magicLinkSchema.safeParse({ email });
     if (!parsed.success) {
-      toast.error(parsed.error.issues[0]?.message ?? "Invalid email");
+      toast.error(parsed.error.issues[0]?.message ?? tErrors("invalidInput"));
       setLoading(false);
       return;
     }
@@ -49,15 +52,15 @@ export function MagicLinkForm({ redirectTo }: MagicLinkFormProps) {
     }
 
     setSent(true);
-    toast.success("Magic link sent! Check your inbox.");
+    toast.success(tErrors("magicLinkSent"));
   }
 
   if (sent) {
     return (
       <div className="rounded-lg border bg-muted/50 p-4 text-center text-sm">
-        <p className="font-medium">Check your email</p>
+        <p className="font-medium">{t("checkEmailInbox")}</p>
         <p className="mt-1 text-muted-foreground">
-          We sent a sign-in link to <strong>{email}</strong>
+          {t("sentTo", { email })}
         </p>
         <Button
           type="button"
@@ -65,7 +68,7 @@ export function MagicLinkForm({ redirectTo }: MagicLinkFormProps) {
           className="mt-2"
           onClick={() => setSent(false)}
         >
-          Use a different email
+          {t("differentEmail")}
         </Button>
       </div>
     );
@@ -74,22 +77,20 @@ export function MagicLinkForm({ redirectTo }: MagicLinkFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="magic-email">Email</Label>
+        <Label htmlFor="magic-email">{t("email")}</Label>
         <Input
           id="magic-email"
           type="email"
           autoComplete="email"
-          placeholder="you@example.com"
+          placeholder={t("emailPlaceholder")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
       </div>
-      <p className="text-sm text-muted-foreground">
-        We&apos;ll email you a secure link to sign in — no password needed.
-      </p>
+      <p className="text-sm text-muted-foreground">{t("magicLinkDescription")}</p>
       <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? "Sending..." : "Send magic link"}
+        {loading ? t("sending") : t("sendMagicLink")}
       </Button>
     </form>
   );

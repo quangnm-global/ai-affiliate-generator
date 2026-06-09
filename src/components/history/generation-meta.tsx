@@ -1,9 +1,10 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import { Calendar, Coins, Hash, Sparkles, Tag } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { CONTENT_TYPE_LABELS } from "@/types/generation";
-import type { Generation } from "@/types/database";
+import { CONTENT_TYPE_KEYS } from "@/lib/i18n/labels";
 import { cn } from "@/lib/utils";
+import type { Generation } from "@/types/database";
 
 interface GenerationMetaProps {
   generation: Generation;
@@ -37,14 +38,20 @@ function MetaItem({
   );
 }
 
-export function GenerationMeta({ generation }: GenerationMetaProps) {
-  const created = new Date(generation.created_at).toLocaleString("en-US", {
+export async function GenerationMeta({ generation }: GenerationMetaProps) {
+  const t = await getTranslations("history");
+  const tStatus = await getTranslations("status");
+  const tTypes = await getTranslations("contentTypes");
+  const locale = await getLocale();
+  const dateLocale = locale === "vi" ? "vi-VN" : "en-US";
+
+  const created = new Date(generation.created_at).toLocaleString(dateLocale, {
     dateStyle: "medium",
     timeStyle: "short",
   });
 
   const completed = generation.completed_at
-    ? new Date(generation.completed_at).toLocaleString("en-US", {
+    ? new Date(generation.completed_at).toLocaleString(dateLocale, {
         dateStyle: "medium",
         timeStyle: "short",
       })
@@ -53,41 +60,43 @@ export function GenerationMeta({ generation }: GenerationMetaProps) {
   return (
     <div className="rounded-2xl border bg-card p-5">
       <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="text-sm font-medium">Generation details</h2>
+        <h2 className="text-sm font-medium">{t("detailTitle")}</h2>
         <Badge
           variant="secondary"
-          className={cn("capitalize", statusStyles[generation.status])}
+          className={cn(statusStyles[generation.status])}
         >
-          {generation.status}
+          {tStatus(generation.status)}
         </Badge>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <MetaItem icon={Tag} label="Product" value={generation.product_name} />
+        <MetaItem icon={Tag} label={t("product")} value={generation.product_name} />
         <MetaItem
           icon={Sparkles}
-          label="Content type"
-          value={CONTENT_TYPE_LABELS[generation.content_type]}
+          label={t("contentType")}
+          value={tTypes(CONTENT_TYPE_KEYS[generation.content_type])}
         />
         <MetaItem
           icon={Coins}
-          label="Credits used"
-          value={`${generation.credits_cost} credit${generation.credits_cost !== 1 ? "s" : ""}`}
+          label={t("creditsUsed")}
+          value={`${generation.credits_cost}`}
         />
-        <MetaItem icon={Calendar} label="Created" value={created} />
-        <MetaItem icon={Calendar} label="Completed" value={completed} />
+        <MetaItem icon={Calendar} label={t("createdAt")} value={created} />
+        <MetaItem icon={Calendar} label={t("completedAt")} value={completed} />
         {generation.tokens_used != null && (
           <MetaItem
             icon={Hash}
-            label="Tokens used"
-            value={generation.tokens_used.toLocaleString()}
+            label={t("tokensUsed")}
+            value={generation.tokens_used.toLocaleString(dateLocale)}
           />
         )}
       </div>
 
       {generation.keywords && generation.keywords.length > 0 && (
         <div className="mt-4 border-t pt-4">
-          <p className="mb-2 text-xs text-muted-foreground">Keywords</p>
+          <p className="mb-2 text-xs text-muted-foreground">
+            {t("keywordsLabel")}
+          </p>
           <div className="flex flex-wrap gap-1.5">
             {generation.keywords.map((kw) => (
               <Badge key={kw} variant="outline" className="text-xs font-normal">
@@ -100,7 +109,7 @@ export function GenerationMeta({ generation }: GenerationMetaProps) {
 
       {generation.affiliate_url && (
         <div className="mt-4 border-t pt-4">
-          <p className="text-xs text-muted-foreground">Affiliate URL</p>
+          <p className="text-xs text-muted-foreground">{t("affiliateUrlLabel")}</p>
           <a
             href={generation.affiliate_url}
             target="_blank"
