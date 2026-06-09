@@ -1,43 +1,60 @@
-import {
-  getSiteUrl,
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_TAGLINE,
-} from "@/lib/seo/site";
+import { getTranslations } from "next-intl/server";
 
-export function getOrganizationJsonLd() {
+import { getSiteUrl, SITE_NAME } from "@/lib/seo/site";
+
+interface SeoCopy {
+  description: string;
+  tagline: string;
+  freeOffer: string;
+}
+
+async function getSeoCopy(locale: string): Promise<SeoCopy> {
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const common = await getTranslations({ locale, namespace: "common" });
+  return {
+    description: t("description"),
+    tagline: common("tagline"),
+    freeOffer: t("freeOffer"),
+  };
+}
+
+export async function getOrganizationJsonLd(locale: string) {
   const siteUrl = getSiteUrl();
+  const { description } = await getSeoCopy(locale);
 
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE_NAME,
-    url: siteUrl,
+    url: `${siteUrl}/${locale}`,
     logo: `${siteUrl}/icon`,
-    description: SITE_DESCRIPTION,
+    description,
     sameAs: [],
   };
 }
 
-export function getWebSiteJsonLd() {
+export async function getWebSiteJsonLd(locale: string) {
   const siteUrl = getSiteUrl();
+  const { description } = await getSeoCopy(locale);
 
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_NAME,
-    url: siteUrl,
-    description: SITE_DESCRIPTION,
+    url: `${siteUrl}/${locale}`,
+    description,
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
-      url: siteUrl,
+      url: `${siteUrl}/${locale}`,
     },
   };
 }
 
-export function getSoftwareApplicationJsonLd() {
+export async function getSoftwareApplicationJsonLd(locale: string) {
   const siteUrl = getSiteUrl();
+  const { description, freeOffer } = await getSeoCopy(locale);
+  const t = await getTranslations({ locale, namespace: "landing.features.items" });
 
   return {
     "@context": "https://schema.org",
@@ -45,38 +62,37 @@ export function getSoftwareApplicationJsonLd() {
     name: SITE_NAME,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    url: siteUrl,
-    description: SITE_DESCRIPTION,
+    url: `${siteUrl}/${locale}`,
+    description,
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      description: "Free tier with 5 credits on signup",
+      description: freeOffer,
     },
     featureList: [
-      "AI content generation",
-      "TikTok Shop scripts",
-      "Product reviews",
-      "Sales captions",
-      "Generation history",
-      "Credit-based pricing",
+      t("aiContent.title"),
+      t("tiktok.title"),
+      t("history.title"),
+      t("credits.title"),
     ],
   };
 }
 
-export function getLandingPageJsonLd() {
+export async function getLandingPageJsonLd(locale: string) {
   const siteUrl = getSiteUrl();
+  const { description, tagline } = await getSeoCopy(locale);
 
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    url: siteUrl,
-    description: SITE_DESCRIPTION,
+    name: `${SITE_NAME} — ${tagline}`,
+    url: `${siteUrl}/${locale}`,
+    description,
     isPartOf: {
       "@type": "WebSite",
       name: SITE_NAME,
-      url: siteUrl,
+      url: `${siteUrl}/${locale}`,
     },
     about: {
       "@type": "SoftwareApplication",
@@ -103,38 +119,22 @@ export function getFaqJsonLd(
   };
 }
 
-export const LANDING_FAQS = [
-  {
-    question: "What is Affiliate AI?",
-    answer:
-      "Affiliate AI is an AI-powered content generator built for affiliate marketers. It creates TikTok scripts, product reviews, sales captions, and hashtags optimized for TikTok Shop and Vietnamese audiences.",
-  },
-  {
-    question: "How do credits work?",
-    answer:
-      "Each content generation costs 1 credit. New users receive 5 free credits on signup. When your credits run out, you can upgrade to a paid plan.",
-  },
-  {
-    question: "What content types can I generate?",
-    answer:
-      "You can generate TikTok Shop scripts, product reviews, comparison articles, buying guides, and social media posts.",
-  },
-  {
-    question: "Is the content in Vietnamese?",
-    answer:
-      "Yes. TikTok content is optimized for Vietnamese audiences with natural, conversational language.",
-  },
-  {
-    question: "Do I need a credit card to start?",
-    answer:
-      "No. Sign up for free and get 5 credits instantly. No credit card required.",
-  },
-] as const;
-
-export function getLandingStructuredData() {
+export async function getLandingFaqs(locale: string) {
+  const t = await getTranslations({ locale, namespace: "landing.faq.items" });
   return [
-    getSoftwareApplicationJsonLd(),
-    getLandingPageJsonLd(),
-    getFaqJsonLd(LANDING_FAQS),
+    { question: t("what.question"), answer: t("what.answer") },
+    { question: t("credits.question"), answer: t("credits.answer") },
+    { question: t("types.question"), answer: t("types.answer") },
+    { question: t("vietnamese.question"), answer: t("vietnamese.answer") },
+    { question: t("card.question"), answer: t("card.answer") },
+  ] as const;
+}
+
+export async function getLandingStructuredData(locale: string) {
+  const faqs = await getLandingFaqs(locale);
+  return [
+    await getSoftwareApplicationJsonLd(locale),
+    await getLandingPageJsonLd(locale),
+    getFaqJsonLd(faqs),
   ];
 }

@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Coins, Mail, User } from "lucide-react";
 
 interface SettingsSectionProps {
@@ -30,11 +31,21 @@ interface AccountInfoProps {
   memberSince: string;
 }
 
-export function AccountInfo({ email, credits, memberSince }: AccountInfoProps) {
+export async function AccountInfo({
+  email,
+  credits,
+  memberSince,
+}: AccountInfoProps) {
+  const t = await getTranslations("settings");
+
   const items = [
-    { icon: Mail, label: "Email", value: email },
-    { icon: Coins, label: "Credits", value: `${credits} remaining` },
-    { icon: User, label: "Member since", value: memberSince },
+    { icon: Mail, label: t("email"), value: email },
+    {
+      icon: Coins,
+      label: t("creditsBalance"),
+      value: t("creditsRemainingLabel", { count: credits }),
+    },
+    { icon: User, label: t("memberSince"), value: memberSince },
   ];
 
   return (

@@ -1,0 +1,364 @@
+{
+  "common": {
+    "appName": "Affiliate AI",
+    "tagline": "AI Affiliate Content Generator",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "tryAgain": "Try again",
+    "goHome": "Go home",
+    "goToDashboard": "Go to dashboard",
+    "notFoundTitle": "Page not found",
+    "notFoundDescription": "The page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to home",
+    "language": "Language",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "errors": {
+    "generic": "Something went wrong",
+    "genericDescription": "An unexpected error occurred. Please try again or return to the dashboard.",
+    "pageSafe": "We could not load this page. Your session and credits are safe.",
+    "dashboardFailed": "Dashboard failed to load. Try again or check your connection.",
+    "critical": "Application error",
+    "criticalDescription": "A critical error occurred. Please refresh the page or try again later.",
+    "unauthorized": "Unauthorized",
+    "invalidInput": "Invalid input",
+    "generationFailed": "Generation failed",
+    "noCredits": "You have no credits left.",
+    "noCreditsLeft": "No credits left",
+    "signedIn": "Signed in successfully",
+    "signedUp": "Account created successfully",
+    "checkEmail": "Check your email to confirm your account.",
+    "magicLinkSent": "Magic link sent! Check your email.",
+    "contentGenerated": "Content generated successfully",
+    "profileUpdated": "Profile updated"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "newGeneration": "New Generation",
+    "history": "History",
+    "settings": "Settings",
+    "features": "Features",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "signIn": "Sign in",
+    "getStarted": "Get started"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signInDescription": "Sign in to your account to generate affiliate content",
+    "emailPassword": "Email & password",
+    "magicLink": "Magic link",
+    "passwordlessOption": "Passwordless option",
+    "preferPassword": "Prefer a password?",
+    "useMagicLink": "Sign in with magic link instead",
+    "useEmailPassword": "Sign in with email & password instead",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "createAccount": "Create account",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "sendMagicLink": "Send magic link",
+    "magicLinkDescription": "We'll email you a link to sign in without a password.",
+    "checkEmailInbox": "Check your email",
+    "sentTo": "We sent a sign-in link to {email}",
+    "differentEmail": "Use a different email",
+    "sending": "Sending...",
+    "pleaseWait": "Please wait...",
+    "signInWithEmail": "Sign in with email",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholderSignup": "Min. 8 characters",
+    "passwordPlaceholderSignin": "Your password"
+  },
+  "landing": {
+    "hero": {
+      "badge": "AI-powered affiliate content",
+      "title": "Generate viral affiliate content",
+      "titleHighlight": "in seconds",
+      "description": "Create TikTok scripts, product reviews, and sales captions optimized for TikTok Shop — built for affiliate marketers and Vietnamese audiences.",
+      "cta": "Start free — 5 credits",
+      "seeHow": "See how it works",
+      "footnote": "No credit card required · 1 credit per generation",
+      "previewTitle": "New Generation",
+      "product": "Product",
+      "sampleProduct": "SPF50+ tone-up sunscreen",
+      "generatedOutput": "Generated output",
+      "sampleOutput": "\"POV: You just found a 200k sunscreen that naturally tones your skin...\"",
+      "outputMeta": "10 hooks · 1 script · 1 caption · 10 hashtags"
+    },
+    "features": {
+      "title": "Everything you need to scale affiliate content",
+      "subtitle": "Stop spending hours writing scripts. Focus on selling while AI handles the creative.",
+      "items": {
+        "aiContent": {
+          "title": "AI content generation",
+          "description": "Generate product reviews, TikTok scripts, sales captions, and hashtags with one click."
+        },
+        "tiktok": {
+          "title": "TikTok Shop optimized",
+          "description": "Prompts tuned for affiliate marketing, high engagement, and Vietnamese audiences."
+        },
+        "instant": {
+          "title": "Instant results",
+          "description": "Get 10 viral hooks, a full script, caption, and hashtags in under 30 seconds."
+        },
+        "multiFormat": {
+          "title": "Multi-format output",
+          "description": "Product reviews, comparisons, buying guides, and social posts — all from one platform."
+        },
+        "history": {
+          "title": "Generation history",
+          "description": "Search, paginate, and revisit every piece of content you've created."
+        },
+        "credits": {
+          "title": "Simple credit system",
+          "description": "1 credit per generation. Start with 5 free credits — no subscription required."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "subtitle": "Three simple steps from product to publish-ready content",
+      "steps": {
+        "product": {
+          "title": "Add your product",
+          "description": "Enter your product name and description. Our AI understands TikTok Shop context."
+        },
+        "type": {
+          "title": "Choose content type",
+          "description": "Pick TikTok scripts, product reviews, comparisons, or social posts."
+        },
+        "publish": {
+          "title": "Generate & publish",
+          "description": "Get hooks, scripts, captions, and hashtags — copy and post to TikTok."
+        }
+      }
+    },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "Start free. Upgrade when you're ready to scale.",
+      "mostPopular": "Most popular",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "price": "$0",
+          "period": "forever",
+          "description": "Perfect for trying out Affiliate AI",
+          "cta": "Get started free",
+          "features": {
+            "0": "5 credits on signup",
+            "1": "All content types",
+            "2": "TikTok Shop scripts",
+            "3": "Generation history",
+            "4": "1 credit per generation"
+          }
+        },
+        "pro": {
+          "name": "Pro",
+          "price": "$19",
+          "period": "/month",
+          "description": "For active affiliate marketers",
+          "cta": "Start Pro trial",
+          "features": {
+            "0": "100 credits per month",
+            "1": "Priority generation",
+            "2": "Export to clipboard",
+            "3": "Search history",
+            "4": "Email support"
+          }
+        },
+        "scale": {
+          "name": "Scale",
+          "price": "$49",
+          "period": "/month",
+          "description": "For teams and agencies",
+          "cta": "Contact sales",
+          "features": {
+            "0": "500 credits per month",
+            "1": "Bulk generation",
+            "2": "API access",
+            "3": "Team workspace",
+            "4": "Priority support"
+          }
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know about Affiliate AI.",
+      "items": {
+        "what": {
+          "question": "What is Affiliate AI?",
+          "answer": "Affiliate AI is an AI-powered content generator built for affiliate marketers. It creates TikTok scripts, product reviews, sales captions, and hashtags optimized for TikTok Shop and Vietnamese audiences."
+        },
+        "credits": {
+          "question": "How do credits work?",
+          "answer": "Each content generation costs 1 credit. New users receive 5 free credits on signup. When your credits run out, you can upgrade to a paid plan."
+        },
+        "types": {
+          "question": "What content types can I generate?",
+          "answer": "You can generate TikTok Shop scripts, product reviews, comparison articles, buying guides, and social media posts."
+        },
+        "vietnamese": {
+          "question": "Is the content in Vietnamese?",
+          "answer": "Yes. TikTok content is optimized for Vietnamese audiences with natural, conversational language."
+        },
+        "card": {
+          "question": "Do I need a credit card to start?",
+          "answer": "No. Sign up for free and get 5 credits instantly. No credit card required."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to create your first viral post?",
+      "subtitle": "Join affiliate marketers using AI to scale their TikTok Shop content.",
+      "button": "Start generating for free"
+    },
+    "footer": {
+      "rights": "All rights reserved.",
+      "product": "Product",
+      "legal": "Legal",
+      "privacy": "Privacy",
+      "terms": "Terms"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Overview of your affiliate content",
+    "hello": "Hello, {name}",
+    "creditsRemaining": "You have {credits} credits remaining. Start a new generation or review your past content.",
+    "creditsLeft": "Credits left",
+    "totalGenerations": "Total generations",
+    "completed": "Completed",
+    "recentActivity": "Recent activity",
+    "noGenerations": "No generations yet",
+    "startFirst": "Create your first piece of content",
+    "viewAll": "View all",
+    "noContentYet": "No content generated yet.",
+    "createFirstLink": "Create your first generation →"
+  },
+  "generate": {
+    "title": "New Generation",
+    "description": "Create affiliate content with AI",
+    "descriptionWithCredit": "Create affiliate content powered by AI · 1 credit per generation",
+    "whatToCreate": "What would you like to create?",
+    "fillDetails": "Fill in the details below to generate affiliate content with AI.",
+    "generatedContent": "Generated content",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Best Wireless Earbuds 2025",
+    "contentType": "Content type",
+    "productName": "Product name",
+    "productNamePlaceholder": "Sony WF-1000XM5",
+    "affiliateUrl": "Affiliate URL (optional)",
+    "affiliateUrlPlaceholder": "https://amazon.com/...",
+    "keywords": "Keywords (comma-separated)",
+    "keywordsPlaceholder": "wireless earbuds, noise cancelling",
+    "tone": "Tone",
+    "generating": "Generating...",
+    "generatingContent": "Generating your content...",
+    "copiedToClipboard": "Copied to clipboard",
+    "generateButton": "Generate · {cost} credit",
+    "creditsRemaining": "{count, plural, one {# credit} other {# credits}} remaining · {cost} credit per generation"
+  },
+  "history": {
+    "title": "History",
+    "descriptionEmpty": "All your past content generations",
+    "descriptionCount": "{count, plural, one {# generation} other {# generations}} total",
+    "searchPlaceholder": "Search by product name...",
+    "search": "Search",
+    "clear": "Clear",
+    "noResults": "No generations found",
+    "noResultsQuery": "No results for \"{query}\"",
+    "tryDifferent": "Try a different search term",
+    "empty": "Your generation history will appear here",
+    "noHistoryYet": "No generations in your history yet.",
+    "clearSearch": "Clear search",
+    "page": "Page {page} of {total}",
+    "previous": "Previous",
+    "next": "Next",
+    "detailTitle": "Generation details",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "createdAt": "Created",
+    "completedAt": "Completed",
+    "tokensUsed": "Tokens used",
+    "status": "Status",
+    "contentType": "Content type",
+    "product": "Product",
+    "tone": "Tone",
+    "creditsUsed": "Credits used",
+    "keywordsLabel": "Keywords",
+    "affiliateUrlLabel": "Affiliate URL"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your account and preferences",
+    "profile": "Profile",
+    "profileDescription": "Update your display name and email",
+    "fullName": "Full name",
+    "email": "Email",
+    "emailReadonly": "Email cannot be changed here",
+    "account": "Account",
+    "accountDescription": "Credits and account information",
+    "creditsBalance": "Credits balance",
+    "signOut": "Sign out",
+    "displayName": "Display name",
+    "yourName": "Your name",
+    "saveChanges": "Save changes",
+    "saving": "Saving...",
+    "memberSince": "Member since",
+    "creditsRemainingLabel": "{count} remaining"
+  },
+  "credits": {
+    "outOfCredits": "Out of credits",
+    "needCredits": "You need at least {cost} credit to generate content. Current balance: {credits} credits."
+  },
+  "contentTypes": {
+    "productReview": "Product Review",
+    "comparison": "Comparison",
+    "buyingGuide": "Buying Guide",
+    "socialPost": "Social Post"
+  },
+  "tones": {
+    "professional": "Professional",
+    "casual": "Casual",
+    "enthusiastic": "Enthusiastic",
+    "informative": "Informative"
+  },
+  "status": {
+    "pending": "Pending",
+    "completed": "Completed",
+    "failed": "Failed"
+  },
+  "sidebar": {
+    "recent": "Recent",
+    "noRecent": "No recent generations"
+  },
+  "seo": {
+    "description": "Generate TikTok scripts, product reviews, and sales captions for affiliate marketing. Optimized for TikTok Shop and Vietnamese audiences. Start free with 5 credits.",
+    "signInDescription": "Sign in to Affiliate AI to generate TikTok scripts, product reviews, and sales captions.",
+    "dashboardTitle": "Dashboard",
+    "generateTitle": "New Generation",
+    "historyTitle": "History",
+    "settingsTitle": "Settings",
+    "freeOffer": "Free tier with 5 credits on signup"
+  },
+  "validation": {
+    "titleMin": "Title must be at least 3 characters",
+    "titleMax": "Title must be at most 200 characters",
+    "productNameMin": "Product name must be at least 2 characters",
+    "productNameMax": "Product name must be at most 200 characters",
+    "urlHttps": "URL must use HTTPS",
+    "invalidEmail": "Invalid email address",
+    "passwordMin": "Password must be at least 6 characters",
+    "productDescriptionMin": "Product description must be at least 10 characters",
+    "productDescriptionMax": "Product description must be at most 2000 characters",
+    "hookMaxWords": "Hook must be {max} words or fewer",
+    "hashtagFormat": "Each hashtag must start with # and contain no spaces"
+  }
+}

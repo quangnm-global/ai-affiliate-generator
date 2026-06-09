@@ -1,6 +1,7 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { HISTORY_PAGE_SIZE } from "@/lib/generations/constants";
 import { buildHistoryUrl } from "@/lib/validations/history";
@@ -12,12 +13,14 @@ interface HistoryPaginationProps {
   query?: string;
 }
 
-export function HistoryPagination({
+export async function HistoryPagination({
   page,
   totalPages,
   total,
   query,
 }: HistoryPaginationProps) {
+  const t = await getTranslations("history");
+
   if (total === 0) return null;
 
   const prevPage = page > 1 ? page - 1 : null;
@@ -29,7 +32,7 @@ export function HistoryPagination({
   return (
     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
       <p className="text-sm text-muted-foreground">
-        Showing {from}–{to} of {total} generation{total !== 1 ? "s" : ""}
+        {from}–{to} / {total}
       </p>
 
       {totalPages > 1 && (
@@ -45,11 +48,11 @@ export function HistoryPagination({
             }
           >
             <ChevronLeft className="size-4" />
-            Previous
+            {t("previous")}
           </Button>
 
           <span className="px-2 text-sm text-muted-foreground">
-            Page {page} of {totalPages}
+            {t("page", { page, total: totalPages })}
           </span>
 
           <Button
@@ -62,7 +65,7 @@ export function HistoryPagination({
               ) : undefined
             }
           >
-            Next
+            {t("next")}
             <ChevronRight className="size-4" />
           </Button>
         </div>

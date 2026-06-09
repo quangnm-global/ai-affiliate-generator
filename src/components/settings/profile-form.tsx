@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
@@ -14,6 +15,8 @@ interface ProfileFormProps {
 }
 
 export function ProfileForm({ fullName, email }: ProfileFormProps) {
+  const t = useTranslations("settings");
+  const tErrors = useTranslations("errors");
   const [pending, startTransition] = useTransition();
 
   function handleSubmit(formData: FormData) {
@@ -23,36 +26,34 @@ export function ProfileForm({ fullName, email }: ProfileFormProps) {
         toast.error(result.error);
         return;
       }
-      toast.success("Profile updated");
+      toast.success(tErrors("profileUpdated"));
     });
   }
 
   return (
     <form action={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="fullName">Display name</Label>
+        <Label htmlFor="fullName">{t("displayName")}</Label>
         <Input
           id="fullName"
           name="fullName"
           defaultValue={fullName ?? ""}
-          placeholder="Your name"
+          placeholder={t("yourName")}
           className="max-w-md bg-background"
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">{t("email")}</Label>
         <Input
           id="email"
           value={email}
           disabled
           className="max-w-md bg-muted"
         />
-        <p className="text-xs text-muted-foreground">
-          Email cannot be changed here.
-        </p>
+        <p className="text-xs text-muted-foreground">{t("emailReadonly")}</p>
       </div>
       <Button type="submit" disabled={pending}>
-        {pending ? "Saving..." : "Save changes"}
+        {pending ? t("saving") : t("saveChanges")}
       </Button>
     </form>
   );

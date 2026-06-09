@@ -1,6 +1,7 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { GenerationListItem } from "@/components/history/generation-list-item";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import type { Generation } from "@/types/database";
 
@@ -9,14 +10,17 @@ interface GenerationListProps {
   query?: string;
 }
 
-export function GenerationList({ generations, query }: GenerationListProps) {
+export async function GenerationList({ generations, query }: GenerationListProps) {
+  const t = await getTranslations("history");
+  const dashboard = await getTranslations("dashboard");
+
   if (generations.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed py-16 text-center">
         {query ? (
           <>
             <p className="text-sm text-muted-foreground">
-              No generations found for &ldquo;{query}&rdquo;
+              {t("noResultsQuery", { query })}
             </p>
             <Button
               variant="link"
@@ -24,13 +28,13 @@ export function GenerationList({ generations, query }: GenerationListProps) {
               className="mt-2"
               render={<Link href="/history" />}
             >
-              Clear search
+              {t("clearSearch")}
             </Button>
           </>
         ) : (
           <>
             <p className="text-sm text-muted-foreground">
-              No generations in your history yet.
+              {t("noHistoryYet")}
             </p>
             <Button
               variant="link"
@@ -38,7 +42,7 @@ export function GenerationList({ generations, query }: GenerationListProps) {
               className="mt-2"
               render={<Link href="/generate" />}
             >
-              Create your first generation →
+              {dashboard("createFirstLink")}
             </Button>
           </>
         )}

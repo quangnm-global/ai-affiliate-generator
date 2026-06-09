@@ -1,8 +1,18 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import { GenerationForm } from "@/components/generate/generation-form";
 import { PageContainer, PageHeader } from "@/components/layout/page-container";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function GeneratePage() {
+export default async function GeneratePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("generate");
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -17,8 +27,8 @@ export default async function GeneratePage() {
   return (
     <PageContainer>
       <PageHeader
-        title="New Generation"
-        description="Create affiliate content powered by AI · 1 credit per generation"
+        title={t("title")}
+        description={t("descriptionWithCredit")}
       />
       <GenerationForm initialCredits={(profile?.credits as number) ?? 0} />
     </PageContainer>

@@ -1,13 +1,38 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import { RecentActivity } from "@/components/dashboard/recent-activity";
 import { StatsGrid, WelcomeBanner } from "@/components/dashboard/welcome-banner";
 import {
   PageContainer,
   PageHeader,
 } from "@/components/layout/page-container";
+import { createMetadata } from "@/lib/seo/metadata";
 import { createClient } from "@/lib/supabase/server";
 import type { Generation } from "@/types/database";
 
-export default async function DashboardPage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo" });
+  return createMetadata({
+    locale,
+    title: t("dashboardTitle"),
+    noIndex: true,
+  });
+}
+
+export default async function DashboardPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("dashboard");
   const supabase = await createClient();
   const {
     data: { user },
@@ -41,10 +66,7 @@ export default async function DashboardPage() {
 
   return (
     <PageContainer size="wide">
-      <PageHeader
-        title="Dashboard"
-        description="Overview of your affiliate content"
-      />
+      <PageHeader title={t("title")} description={t("description")} />
       <div className="space-y-8">
         <WelcomeBanner
           name={displayName}

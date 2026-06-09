@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { LogOut, Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "@/i18n/navigation";
 
 interface SidebarUser {
   email: string;
@@ -24,6 +25,7 @@ interface UserMenuProps {
 }
 
 export function UserMenu({ user, signOutAction }: UserMenuProps) {
+  const t = useTranslations("settings");
   const displayName = user.fullName ?? user.email.split("@")[0];
   const initials = displayName.slice(0, 2).toUpperCase();
 
@@ -47,7 +49,7 @@ export function UserMenu({ user, signOutAction }: UserMenuProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem render={<Link href="/settings" />}>
           <Settings className="size-4" />
-          Settings
+          {t("title")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <form action={signOutAction}>
@@ -55,7 +57,7 @@ export function UserMenu({ user, signOutAction }: UserMenuProps) {
             render={<button type="submit" className="w-full" />}
           >
             <LogOut className="size-4" />
-            Log out
+            {t("signOut")}
           </DropdownMenuItem>
         </form>
       </DropdownMenuContent>

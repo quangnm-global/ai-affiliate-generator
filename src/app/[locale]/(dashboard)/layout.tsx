@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { signOut } from "@/actions/auth";
 import { Sidebar } from "@/components/layout/sidebar";
@@ -8,10 +9,20 @@ import { createMetadata } from "@/lib/seo/metadata";
 import { createClient } from "@/lib/supabase/server";
 import type { Generation } from "@/types/database";
 
-export const metadata: Metadata = createMetadata({
-  title: "Dashboard",
-  noIndex: true,
-});
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo" });
+
+  return createMetadata({
+    locale,
+    title: t("dashboardTitle"),
+    noIndex: true,
+  });
+}
 
 export const dynamic = "force-dynamic";
 

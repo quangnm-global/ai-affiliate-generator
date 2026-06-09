@@ -1,3 +1,5 @@
+import { stripLocale } from "@/i18n/routing";
+
 /** Routes that require an authenticated session */
 export const PROTECTED_ROUTES = [
   "/dashboard",
@@ -10,20 +12,31 @@ export const PROTECTED_ROUTES = [
 export const AUTH_ROUTES = ["/login"] as const;
 
 export function isProtectedRoute(pathname: string) {
+  const path = stripLocale(pathname);
   return PROTECTED_ROUTES.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
+    (route) => path === route || path.startsWith(`${route}/`)
   );
 }
 
 export function isAuthRoute(pathname: string) {
+  const path = stripLocale(pathname);
   return AUTH_ROUTES.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
+    (route) => path === route || path.startsWith(`${route}/`)
   );
 }
 
-export function sanitizeRedirectPath(path: string | null | undefined) {
+export function sanitizeRedirectPath(
+  path: string | null | undefined,
+  locale = "en"
+) {
   if (!path || !path.startsWith("/") || path.startsWith("//")) {
-    return "/dashboard";
+    return `/${locale}/dashboard`;
   }
-  return path;
+
+  const stripped = stripLocale(path);
+  if (stripped.startsWith("/en/") || stripped.startsWith("/vi/")) {
+    return stripped;
+  }
+
+  return `/${locale}${stripped === "/" ? "/dashboard" : stripped}`;
 }

@@ -1,6 +1,9 @@
-import Link from "next/link";
-import { MessageSquare } from "lucide-react";
+"use client";
 
+import { MessageSquare } from "lucide-react";
+import { useTranslations } from "next-intl";
+
+import { Link } from "@/i18n/navigation";
 import type { Generation } from "@/types/database";
 
 interface SidebarRecentProps {
@@ -8,10 +11,13 @@ interface SidebarRecentProps {
 }
 
 export function SidebarRecent({ generations }: SidebarRecentProps) {
+  const t = useTranslations("sidebar");
+  const dashboard = useTranslations("dashboard");
+
   if (generations.length === 0) {
     return (
       <p className="px-3 py-2 text-xs text-muted-foreground">
-        No generations yet
+        {dashboard("noGenerations")}
       </p>
     );
   }
@@ -19,7 +25,7 @@ export function SidebarRecent({ generations }: SidebarRecentProps) {
   return (
     <div className="space-y-1">
       <p className="px-3 py-1.5 text-xs font-medium text-muted-foreground">
-        Recent
+        {t("recent")}
       </p>
       {generations.map((gen) => (
         <Link

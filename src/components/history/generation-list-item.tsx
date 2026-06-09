@@ -1,10 +1,13 @@
-import Link from "next/link";
+"use client";
+
 import { ChevronRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
-import { CONTENT_TYPE_LABELS } from "@/types/generation";
-import type { Generation } from "@/types/database";
+import { Link } from "@/i18n/navigation";
+import { CONTENT_TYPE_KEYS } from "@/lib/i18n/labels";
 import { cn } from "@/lib/utils";
+import type { Generation } from "@/types/database";
 
 interface GenerationListItemProps {
   generation: Generation;
@@ -21,11 +24,18 @@ export function GenerationListItem({
   generation,
   showMeta = true,
 }: GenerationListItemProps) {
-  const date = new Date(generation.created_at).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+  const tStatus = useTranslations("status");
+  const tTypes = useTranslations("contentTypes");
+  const locale = useLocale();
+
+  const date = new Date(generation.created_at).toLocaleDateString(
+    locale === "vi" ? "vi-VN" : "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
 
   return (
     <Link
@@ -39,7 +49,7 @@ export function GenerationListItem({
         {showMeta && (
           <p className="mt-0.5 truncate text-xs text-muted-foreground">
             {generation.product_name} ·{" "}
-            {CONTENT_TYPE_LABELS[generation.content_type]}
+            {tTypes(CONTENT_TYPE_KEYS[generation.content_type])}
           </p>
         )}
       </div>
@@ -48,7 +58,7 @@ export function GenerationListItem({
           variant="secondary"
           className={cn("text-xs font-normal", statusStyles[generation.status])}
         >
-          {generation.status}
+          {tStatus(generation.status)}
         </Badge>
         <span className="hidden text-xs text-muted-foreground sm:inline">
           {date}

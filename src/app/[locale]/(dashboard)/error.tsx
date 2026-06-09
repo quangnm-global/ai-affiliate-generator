@@ -1,18 +1,21 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
 import { ErrorFallback } from "@/components/errors/error-fallback";
 
-export default function Error({
+export default function DashboardError({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations("errors");
+
   useEffect(() => {
-    console.error("[app:error]", {
+    console.error("[dashboard:error]", {
       message: error.message,
       digest: error.digest,
       stack: error.stack,
@@ -20,9 +23,6 @@ export default function Error({
   }, [error]);
 
   return (
-    <ErrorFallback
-      reset={reset}
-      description="We could not load this page. Your session and credits are safe."
-    />
+    <ErrorFallback reset={reset} description={t("dashboardFailed")} />
   );
 }

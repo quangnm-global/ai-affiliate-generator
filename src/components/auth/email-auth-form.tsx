@@ -1,12 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { sanitizeRedirectPath } from "@/lib/auth/routes";
 import { createClient } from "@/lib/supabase/client";
 import {
   signInSchema,
@@ -14,7 +16,6 @@ import {
   type SignInInput,
   type SignUpInput,
 } from "@/lib/validations/auth";
-import { sanitizeRedirectPath } from "@/lib/auth/routes";
 
 interface EmailAuthFormProps {
   redirectTo: string;
@@ -23,6 +24,8 @@ interface EmailAuthFormProps {
 type AuthMode = "signin" | "signup";
 
 export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
+  const t = useTranslations("auth");
+  const tErrors = useTranslations("errors");
   const router = useRouter();
   const [mode, setMode] = useState<AuthMode>("signin");
   const [loading, setLoading] = useState(false);
@@ -41,7 +44,7 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
       return;
     }
 
-    toast.success("Signed in successfully");
+    toast.success(tErrors("signedIn"));
     router.push(sanitizeRedirectPath(redirectTo));
     router.refresh();
   }
@@ -64,13 +67,13 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
     }
 
     if (authData.session) {
-      toast.success("Account created successfully");
+      toast.success(tErrors("signedUp"));
       router.push(sanitizeRedirectPath(redirectTo));
       router.refresh();
       return;
     }
 
-    toast.success("Check your email to confirm your account.");
+    toast.success(tErrors("checkEmail"));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -80,7 +83,7 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
     if (mode === "signin") {
       const parsed = signInSchema.safeParse({ email, password });
       if (!parsed.success) {
-        toast.error(parsed.error.issues[0]?.message ?? "Invalid input");
+        toast.error(parsed.error.issues[0]?.message ?? tErrors("invalidInput"));
         setLoading(false);
         return;
       }
@@ -88,7 +91,7 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
     } else {
       const parsed = signUpSchema.safeParse({ email, password });
       if (!parsed.success) {
-        toast.error(parsed.error.issues[0]?.message ?? "Invalid input");
+        toast.error(parsed.error.issues[0]?.message ?? tErrors("invalidInput"));
         setLoading(false);
         return;
       }
@@ -108,7 +111,7 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
           className="flex-1"
           onClick={() => setMode("signin")}
         >
-          Sign in
+          {t("signIn")}
         </Button>
         <Button
           type="button"
@@ -117,18 +120,18 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
           className="flex-1"
           onClick={() => setMode("signup")}
         >
-          Sign up
+          {t("signUp")}
         </Button>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("email")}</Label>
           <Input
             id="email"
             type="email"
             autoComplete="email"
-            placeholder="you@example.com"
+            placeholder={t("emailPlaceholder")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -136,12 +139,16 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t("password")}</Label>
           <Input
             id="password"
             type="password"
             autoComplete={mode === "signin" ? "current-password" : "new-password"}
-            placeholder={mode === "signup" ? "Min. 8 characters" : "Your password"}
+            placeholder={
+              mode === "signup"
+                ? t("passwordPlaceholderSignup")
+                : t("passwordPlaceholderSignin")
+            }
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -151,10 +158,10 @@ export function EmailAuthForm({ redirectTo }: EmailAuthFormProps) {
 
         <Button type="submit" className="w-full" disabled={loading}>
           {loading
-            ? "Please wait..."
+            ? t("pleaseWait")
             : mode === "signin"
-              ? "Sign in with email"
-              : "Create account"}
+              ? t("signInWithEmail")
+              : t("createAccount")}
         </Button>
       </form>
     </div>

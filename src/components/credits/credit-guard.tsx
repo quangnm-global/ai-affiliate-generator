@@ -1,6 +1,7 @@
 "use client";
 
 import { Coins, Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { canGenerate } from "@/lib/credits/check";
@@ -11,6 +12,8 @@ interface NoCreditsBannerProps {
 }
 
 export function NoCreditsBanner({ credits }: NoCreditsBannerProps) {
+  const t = useTranslations("credits");
+
   if (canGenerate(credits)) return null;
 
   return (
@@ -19,11 +22,13 @@ export function NoCreditsBanner({ credits }: NoCreditsBannerProps) {
         <Coins className="mt-0.5 size-4 shrink-0 text-amber-600" />
         <div>
           <p className="font-medium text-amber-800 dark:text-amber-300">
-            Hết credits
+            {t("outOfCredits")}
           </p>
           <p className="mt-0.5 text-muted-foreground">
-            Bạn cần ít nhất {GENERATION_CREDIT_COST} credit để tạo nội dung.
-            Hiện tại: {credits} credits.
+            {t("needCredits", {
+              cost: GENERATION_CREDIT_COST,
+              credits,
+            })}
           </p>
         </div>
       </div>
@@ -37,16 +42,18 @@ interface GenerateButtonProps {
 }
 
 export function GenerateButton({ credits, loading }: GenerateButtonProps) {
+  const t = useTranslations("generate");
+  const errors = useTranslations("errors");
   const disabled = loading || !canGenerate(credits);
 
   return (
     <Button type="submit" disabled={disabled} size="lg" className="gap-2">
       <Sparkles className="size-4" />
       {loading
-        ? "Generating..."
+        ? t("generating")
         : !canGenerate(credits)
-          ? "No credits left"
-          : `Generate · ${GENERATION_CREDIT_COST} credit`}
+          ? errors("noCreditsLeft")
+          : t("generateButton", { cost: GENERATION_CREDIT_COST })}
     </Button>
   );
 }
@@ -56,10 +63,14 @@ interface CreditInfoProps {
 }
 
 export function CreditInfo({ credits }: CreditInfoProps) {
+  const t = useTranslations("generate");
+
   return (
     <p className="text-xs text-muted-foreground">
-      {credits} credit{credits !== 1 ? "s" : ""} remaining ·{" "}
-      {GENERATION_CREDIT_COST} credit per generation
+      {t("creditsRemaining", {
+        count: credits,
+        cost: GENERATION_CREDIT_COST,
+      })}
     </p>
   );
 }

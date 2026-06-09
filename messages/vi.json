@@ -1,0 +1,364 @@
+{
+  "common": {
+    "appName": "Affiliate AI",
+    "tagline": "Trình tạo nội dung Affiliate bằng AI",
+    "loading": "Đang tải...",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "back": "Quay lại",
+    "tryAgain": "Thử lại",
+    "goHome": "Về trang chủ",
+    "goToDashboard": "Về bảng điều khiển",
+    "notFoundTitle": "Không tìm thấy trang",
+    "notFoundDescription": "Trang bạn tìm không tồn tại hoặc đã được di chuyển.",
+    "backToHome": "Về trang chủ",
+    "language": "Ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
+  "errors": {
+    "generic": "Đã xảy ra lỗi",
+    "genericDescription": "Có lỗi không mong muốn. Vui lòng thử lại hoặc quay về bảng điều khiển.",
+    "pageSafe": "Không thể tải trang này. Phiên đăng nhập và credits của bạn vẫn an toàn.",
+    "dashboardFailed": "Không tải được bảng điều khiển. Thử lại hoặc kiểm tra kết nối.",
+    "critical": "Lỗi ứng dụng",
+    "criticalDescription": "Lỗi nghiêm trọng. Vui lòng tải lại trang hoặc thử lại sau.",
+    "unauthorized": "Chưa đăng nhập",
+    "invalidInput": "Dữ liệu không hợp lệ",
+    "generationFailed": "Tạo nội dung thất bại",
+    "noCredits": "Bạn đã hết credits.",
+    "noCreditsLeft": "Hết credits",
+    "signedIn": "Đăng nhập thành công",
+    "signedUp": "Tạo tài khoản thành công",
+    "checkEmail": "Kiểm tra email để xác nhận tài khoản.",
+    "magicLinkSent": "Đã gửi magic link! Kiểm tra email của bạn.",
+    "contentGenerated": "Tạo nội dung thành công",
+    "profileUpdated": "Đã cập nhật hồ sơ"
+  },
+  "nav": {
+    "dashboard": "Bảng điều khiển",
+    "newGeneration": "Tạo mới",
+    "history": "Lịch sử",
+    "settings": "Cài đặt",
+    "features": "Tính năng",
+    "howItWorks": "Cách hoạt động",
+    "pricing": "Bảng giá",
+    "faq": "FAQ",
+    "signIn": "Đăng nhập",
+    "getStarted": "Bắt đầu"
+  },
+  "auth": {
+    "signInTitle": "Đăng nhập",
+    "signInDescription": "Đăng nhập để tạo nội dung affiliate",
+    "emailPassword": "Email & mật khẩu",
+    "magicLink": "Magic link",
+    "passwordlessOption": "Đăng nhập không mật khẩu",
+    "preferPassword": "Muốn dùng mật khẩu?",
+    "useMagicLink": "Đăng nhập bằng magic link",
+    "useEmailPassword": "Đăng nhập bằng email & mật khẩu",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "signIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "createAccount": "Tạo tài khoản",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "noAccount": "Chưa có tài khoản?",
+    "sendMagicLink": "Gửi magic link",
+    "magicLinkDescription": "Chúng tôi sẽ gửi link đăng nhập qua email, không cần mật khẩu.",
+    "checkEmailInbox": "Kiểm tra email",
+    "sentTo": "Đã gửi link đăng nhập tới {email}",
+    "differentEmail": "Dùng email khác",
+    "sending": "Đang gửi...",
+    "pleaseWait": "Vui lòng đợi...",
+    "signInWithEmail": "Đăng nhập bằng email",
+    "emailPlaceholder": "ban@example.com",
+    "passwordPlaceholderSignup": "Tối thiểu 8 ký tự",
+    "passwordPlaceholderSignin": "Mật khẩu của bạn"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Nội dung affiliate bằng AI",
+      "title": "Tạo nội dung affiliate viral",
+      "titleHighlight": "trong vài giây",
+      "description": "Tạo kịch bản TikTok, review sản phẩm và caption bán hàng tối ưu cho TikTok Shop — dành cho affiliate marketer và khán giả Việt.",
+      "cta": "Bắt đầu miễn phí — 5 credits",
+      "seeHow": "Xem cách hoạt động",
+      "footnote": "Không cần thẻ tín dụng · 1 credit mỗi lần tạo",
+      "previewTitle": "Tạo mới",
+      "product": "Sản phẩm",
+      "sampleProduct": "Kem chống nắng nâng tone SPF50+",
+      "generatedOutput": "Kết quả tạo",
+      "sampleOutput": "\"POV: Bạn vừa phát hiện kem chống nắng 200k mà da nâng tone tự nhiên...\"",
+      "outputMeta": "10 hooks · 1 kịch bản · 1 caption · 10 hashtag"
+    },
+    "features": {
+      "title": "Mọi thứ bạn cần để scale nội dung affiliate",
+      "subtitle": "Đừng tốn hàng giờ viết kịch bản. Tập trung bán hàng, để AI lo phần sáng tạo.",
+      "items": {
+        "aiContent": {
+          "title": "Tạo nội dung bằng AI",
+          "description": "Tạo review, kịch bản TikTok, caption và hashtag chỉ với một cú nhấp."
+        },
+        "tiktok": {
+          "title": "Tối ưu TikTok Shop",
+          "description": "Prompt được tinh chỉnh cho affiliate marketing, tương tác cao và khán giả Việt."
+        },
+        "instant": {
+          "title": "Kết quả tức thì",
+          "description": "Nhận 10 hook viral, kịch bản đầy đủ, caption và hashtag trong dưới 30 giây."
+        },
+        "multiFormat": {
+          "title": "Đa định dạng",
+          "description": "Review, so sánh, hướng dẫn mua và bài social — tất cả trên một nền tảng."
+        },
+        "history": {
+          "title": "Lịch sử tạo nội dung",
+          "description": "Tìm kiếm, phân trang và xem lại mọi nội dung đã tạo."
+        },
+        "credits": {
+          "title": "Hệ thống credit đơn giản",
+          "description": "1 credit mỗi lần tạo. Bắt đầu với 5 credits miễn phí — không cần đăng ký gói."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "Cách hoạt động",
+      "subtitle": "Ba bước đơn giản từ sản phẩm đến nội dung sẵn sàng đăng",
+      "steps": {
+        "product": {
+          "title": "Thêm sản phẩm",
+          "description": "Nhập tên và mô tả sản phẩm. AI hiểu ngữ cảnh TikTok Shop."
+        },
+        "type": {
+          "title": "Chọn loại nội dung",
+          "description": "Chọn kịch bản TikTok, review, so sánh hoặc bài social."
+        },
+        "publish": {
+          "title": "Tạo & đăng",
+          "description": "Nhận hooks, kịch bản, caption và hashtag — copy và đăng TikTok."
+        }
+      }
+    },
+    "pricing": {
+      "title": "Bảng giá minh bạch",
+      "subtitle": "Bắt đầu miễn phí. Nâng cấp khi bạn sẵn sàng scale.",
+      "mostPopular": "Phổ biến nhất",
+      "plans": {
+        "free": {
+          "name": "Miễn phí",
+          "price": "$0",
+          "period": "mãi mãi",
+          "description": "Hoàn hảo để thử Affiliate AI",
+          "cta": "Bắt đầu miễn phí",
+          "features": {
+            "0": "5 credits khi đăng ký",
+            "1": "Tất cả loại nội dung",
+            "2": "Kịch bản TikTok Shop",
+            "3": "Lịch sử tạo nội dung",
+            "4": "1 credit mỗi lần tạo"
+          }
+        },
+        "pro": {
+          "name": "Pro",
+          "price": "$19",
+          "period": "/tháng",
+          "description": "Cho affiliate marketer tích cực",
+          "cta": "Dùng thử Pro",
+          "features": {
+            "0": "100 credits mỗi tháng",
+            "1": "Ưu tiên tạo nội dung",
+            "2": "Xuất clipboard",
+            "3": "Tìm kiếm lịch sử",
+            "4": "Hỗ trợ email"
+          }
+        },
+        "scale": {
+          "name": "Scale",
+          "price": "$49",
+          "period": "/tháng",
+          "description": "Cho team và agency",
+          "cta": "Liên hệ sales",
+          "features": {
+            "0": "500 credits mỗi tháng",
+            "1": "Tạo hàng loạt",
+            "2": "Truy cập API",
+            "3": "Không gian team",
+            "4": "Hỗ trợ ưu tiên"
+          }
+        }
+      }
+    },
+    "faq": {
+      "title": "Câu hỏi thường gặp",
+      "subtitle": "Mọi thứ bạn cần biết về Affiliate AI.",
+      "items": {
+        "what": {
+          "question": "Affiliate AI là gì?",
+          "answer": "Affiliate AI là công cụ tạo nội dung bằng AI dành cho affiliate marketer. Tạo kịch bản TikTok, review sản phẩm, caption bán hàng và hashtag tối ưu cho TikTok Shop và khán giả Việt."
+        },
+        "credits": {
+          "question": "Credits hoạt động thế nào?",
+          "answer": "Mỗi lần tạo nội dung tốn 1 credit. Người dùng mới nhận 5 credits miễn phí khi đăng ký. Khi hết credits, bạn có thể nâng cấp gói trả phí."
+        },
+        "types": {
+          "question": "Tôi có thể tạo những loại nội dung nào?",
+          "answer": "Bạn có thể tạo kịch bản TikTok Shop, review sản phẩm, bài so sánh, hướng dẫn mua và bài đăng mạng xã hội."
+        },
+        "vietnamese": {
+          "question": "Nội dung có bằng tiếng Việt không?",
+          "answer": "Có. Nội dung TikTok được tối ưu cho khán giả Việt với ngôn ngữ tự nhiên, gần gũi."
+        },
+        "card": {
+          "question": "Tôi có cần thẻ tín dụng để bắt đầu không?",
+          "answer": "Không. Đăng ký miễn phí và nhận 5 credits ngay. Không cần thẻ tín dụng."
+        }
+      }
+    },
+    "cta": {
+      "title": "Sẵn sàng tạo bài viral đầu tiên?",
+      "subtitle": "Tham gia cùng affiliate marketer đang dùng AI để scale nội dung TikTok Shop.",
+      "button": "Bắt đầu tạo miễn phí"
+    },
+    "footer": {
+      "rights": "Bảo lưu mọi quyền.",
+      "product": "Sản phẩm",
+      "legal": "Pháp lý",
+      "privacy": "Quyền riêng tư",
+      "terms": "Điều khoản"
+    }
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "description": "Tổng quan nội dung affiliate của bạn",
+    "hello": "Xin chào, {name}",
+    "creditsRemaining": "Bạn còn {credits} credits. Tạo nội dung mới hoặc xem lại nội dung cũ.",
+    "creditsLeft": "Credits còn lại",
+    "totalGenerations": "Tổng lần tạo",
+    "completed": "Hoàn thành",
+    "recentActivity": "Hoạt động gần đây",
+    "noGenerations": "Chưa có nội dung nào",
+    "startFirst": "Tạo nội dung đầu tiên",
+    "viewAll": "Xem tất cả",
+    "noContentYet": "Chưa có nội dung nào.",
+    "createFirstLink": "Tạo nội dung đầu tiên →"
+  },
+  "generate": {
+    "title": "Tạo mới",
+    "description": "Tạo nội dung affiliate bằng AI",
+    "descriptionWithCredit": "Tạo nội dung affiliate bằng AI · 1 credit mỗi lần tạo",
+    "whatToCreate": "Bạn muốn tạo gì?",
+    "fillDetails": "Điền thông tin bên dưới để AI tạo nội dung affiliate.",
+    "generatedContent": "Nội dung đã tạo",
+    "titleLabel": "Tiêu đề",
+    "titlePlaceholder": "Tai nghe không dây tốt nhất 2025",
+    "contentType": "Loại nội dung",
+    "productName": "Tên sản phẩm",
+    "productNamePlaceholder": "Sony WF-1000XM5",
+    "affiliateUrl": "Link affiliate (tuỳ chọn)",
+    "affiliateUrlPlaceholder": "https://shopee.vn/...",
+    "keywords": "Từ khóa (phân cách bằng dấu phẩy)",
+    "keywordsPlaceholder": "tai nghe, chống ồn",
+    "tone": "Giọng văn",
+    "generating": "Đang tạo...",
+    "generatingContent": "Đang tạo nội dung...",
+    "copiedToClipboard": "Đã sao chép",
+    "generateButton": "Tạo · {cost} credit",
+    "creditsRemaining": "Còn {count, plural, one {# credit} other {# credits}} · {cost} credit mỗi lần tạo"
+  },
+  "history": {
+    "title": "Lịch sử",
+    "descriptionEmpty": "Tất cả nội dung đã tạo",
+    "descriptionCount": "Tổng {count, plural, one {# lần tạo} other {# lần tạo}}",
+    "searchPlaceholder": "Tìm theo tên sản phẩm...",
+    "search": "Tìm",
+    "clear": "Xóa",
+    "noResults": "Không tìm thấy",
+    "noResultsQuery": "Không có kết quả cho \"{query}\"",
+    "tryDifferent": "Thử từ khóa khác",
+    "empty": "Lịch sử tạo nội dung sẽ hiển thị ở đây",
+    "noHistoryYet": "Chưa có lịch sử tạo nội dung.",
+    "clearSearch": "Xóa tìm kiếm",
+    "page": "Trang {page} / {total}",
+    "previous": "Trước",
+    "next": "Sau",
+    "detailTitle": "Chi tiết",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép!",
+    "createdAt": "Tạo lúc",
+    "completedAt": "Hoàn thành",
+    "tokensUsed": "Tokens đã dùng",
+    "status": "Trạng thái",
+    "contentType": "Loại nội dung",
+    "product": "Sản phẩm",
+    "tone": "Giọng văn",
+    "creditsUsed": "Credits đã dùng",
+    "keywordsLabel": "Từ khóa",
+    "affiliateUrlLabel": "Link affiliate"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "description": "Quản lý tài khoản và tuỳ chọn",
+    "profile": "Hồ sơ",
+    "profileDescription": "Cập nhật tên hiển thị và email",
+    "fullName": "Họ tên",
+    "email": "Email",
+    "emailReadonly": "Không thể đổi email tại đây",
+    "account": "Tài khoản",
+    "accountDescription": "Credits và thông tin tài khoản",
+    "creditsBalance": "Số dư credits",
+    "signOut": "Đăng xuất",
+    "displayName": "Tên hiển thị",
+    "yourName": "Tên của bạn",
+    "saveChanges": "Lưu thay đổi",
+    "saving": "Đang lưu...",
+    "memberSince": "Thành viên từ",
+    "creditsRemainingLabel": "Còn {count}"
+  },
+  "credits": {
+    "outOfCredits": "Hết credits",
+    "needCredits": "Bạn cần ít nhất {cost} credit để tạo nội dung. Hiện tại: {credits} credits."
+  },
+  "contentTypes": {
+    "productReview": "Review sản phẩm",
+    "comparison": "So sánh",
+    "buyingGuide": "Hướng dẫn mua",
+    "socialPost": "Bài social"
+  },
+  "tones": {
+    "professional": "Chuyên nghiệp",
+    "casual": "Thân mật",
+    "enthusiastic": "Nhiệt huyết",
+    "informative": "Thông tin"
+  },
+  "status": {
+    "pending": "Đang xử lý",
+    "completed": "Hoàn thành",
+    "failed": "Thất bại"
+  },
+  "sidebar": {
+    "recent": "Gần đây",
+    "noRecent": "Chưa có nội dung gần đây"
+  },
+  "seo": {
+    "description": "Tạo kịch bản TikTok, review sản phẩm và caption bán hàng cho affiliate marketing. Tối ưu TikTok Shop và khán giả Việt. Bắt đầu miễn phí với 5 credits.",
+    "signInDescription": "Đăng nhập Affiliate AI để tạo kịch bản TikTok, review và caption bán hàng.",
+    "dashboardTitle": "Bảng điều khiển",
+    "generateTitle": "Tạo mới",
+    "historyTitle": "Lịch sử",
+    "settingsTitle": "Cài đặt",
+    "freeOffer": "Gói miễn phí với 5 credits khi đăng ký"
+  },
+  "validation": {
+    "titleMin": "Tiêu đề phải có ít nhất 3 ký tự",
+    "titleMax": "Tiêu đề tối đa 200 ký tự",
+    "productNameMin": "Tên sản phẩm phải có ít nhất 2 ký tự",
+    "productNameMax": "Tên sản phẩm tối đa 200 ký tự",
+    "urlHttps": "URL phải dùng HTTPS",
+    "invalidEmail": "Email không hợp lệ",
+    "passwordMin": "Mật khẩu phải có ít nhất 6 ký tự",
+    "productDescriptionMin": "Mô tả sản phẩm phải có ít nhất 10 ký tự",
+    "productDescriptionMax": "Mô tả sản phẩm tối đa 2000 ký tự",
+    "hookMaxWords": "Hook tối đa {max} từ",
+    "hashtagFormat": "Mỗi hashtag phải bắt đầu bằng # và không có khoảng trắng"
+  }
+}
